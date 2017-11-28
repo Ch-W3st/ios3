@@ -1,3 +1,4 @@
+
 //
 //  AddressCard.swift
 //  iOS3-Westphal-Derin
@@ -8,7 +9,7 @@
 
 import Foundation
 
-class AddressCard :NSObject & Codable & Equatable & NSCoding {
+class AddressCard: Equatable, Codable {
     
     var first_name = ""
     var surname = ""
@@ -26,37 +27,31 @@ class AddressCard :NSObject & Codable & Equatable & NSCoding {
         self.city = city
     }
     
-    required init(coder decoder: NSCoder) {
-        if let str = decoder.decodeObject(forKey: "first_name") as? String{
-            first_name = str
-        }
-        if let str = decoder.decodeObject(forKey: "surname") as? String{
-            surname = str
-        }
-        if let str = decoder.decodeObject(forKey: "street") as? String{
-            street = str
-        }
-        if let str = decoder.decodeInteger(forKey: "zip") as? Int{
-            zip = str
-        }
-        if let str = decoder.decodeObject(forKey: "city") as? String{
-            city = str
+    func add(hobby: String){
+        hobbies.append(hobby)
+    }
+    
+    func remove(hobby: String) {
+        if let index = hobbies.index(of: hobby) {
+            hobbies.remove(at: index)
         }
     }
     
-    func encode(with coder : NSCoder) {
-        coder.encode(first_name, forKey: "first_name")
-        coder.encode(surname, forKey: "surname")
-        coder.encode(street, forKey: "street")
-        coder.encode(zip, forKey: "zip")
-        coder.encode(city, forKey: "city")
+    func add(friend: AddressCard){
+        friends.append(friend)
     }
+    
+    func remove(friend: AddressCard){
+        if let index = friends.index(of: friend) {
+            friends.remove(at: index)
+        }
+    }
+    
     static func ==(lhs: AddressCard, rhs: AddressCard) -> Bool {
         return lhs.first_name == rhs.first_name
     }
     
-    
-
 }
+
 
 
