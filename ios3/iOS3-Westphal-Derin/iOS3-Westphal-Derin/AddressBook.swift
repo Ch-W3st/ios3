@@ -50,24 +50,17 @@ class AddressBook: Codable {
     
     class func addressBook(fromFile path: String) -> AddressBook? {
         let url = URL(fileURLWithPath: path)
+        let decoder = JSONDecoder()
         if let data = try? Data(contentsOf: url) {
-            let decoder = JSONDecoder()
-            if let addressBook = try? decoder.decode(AddressBook.self, from: data) {
+            if let addressCards = try? decoder.decode([AddressCard].self, from: data) {
+                let addressBook = AddressBook()
+                for card in addressCards{
+                    addressBook.add(card: card)
+                }
                 return addressBook
             }
         }
-        return nil
-    }
-    
-    func printLastNames(){
-        for card in addressCards {
-            print(card.surname)
-            print(card.first_name)
-            print(card.street)
-            print(card.zip)
-            print(card.city)
-            print("########################")
-        }
+        return AddressBook()
     }
     
 }

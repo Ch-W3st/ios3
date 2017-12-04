@@ -1,4 +1,3 @@
-
 //
 //  AddressCard.swift
 //  iOS3-Westphal-Derin
@@ -50,7 +49,7 @@ class AddressCard: Equatable, Codable {
     static func ==(lhs: AddressCard, rhs: AddressCard) -> Bool {
         return lhs.first_name == rhs.first_name
     }
-    
+        
 }
 
 
